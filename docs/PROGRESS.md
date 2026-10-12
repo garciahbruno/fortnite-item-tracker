@@ -1,8 +1,28 @@
 # Build handoff
 
-## Day 1 — in progress
+## Day 1 — complete (October 11, 2026)
 
-Goal: a runnable and verifiable service foundation; no fake shop data or placeholder authentication.
+Implemented: Gin server, embedded responsive web shell, environment validation, graceful shutdown, health/readiness endpoints, PostgreSQL schema, serialized transactional migrations, non-root Docker image, Compose startup ordering, and GitHub Actions checks.
+
+Validation completed:
+- `go test -race ./...`, `go vet ./...`, and `go build ./cmd/...` passed with Go 1.27.2.
+- Real PostgreSQL integration test passed: repeated migrations, watchlist/notification deduplication, and user deletion cascades.
+- Docker image built and Compose migrations completed successfully, including a second migration run.
+- Live HTTP checks passed for health, readiness, status, HTML, CSS, and JavaScript. `/.env` returned 404.
+- Browser preview showed API Online and Database Connected; layout inspected.
+- GitHub Actions workflow is configured; remote CI results are not yet verified.
+
+Local checkout: `/Users/venyo/fortnite-item-tracker`.
+Preview: http://localhost:18080 (8080 was occupied). The running Compose project is `fortnite-day1`, started using the sample development environment:
+
+```sh
+PORT=18080 docker compose --env-file .env.example -p fortnite-day1 up -d
+PORT=18080 docker compose --env-file .env.example -p fortnite-day1 down
+```
+
+The app and its database were left running for preview. The isolated test database container was removed. A checksum-verified temporary Go SDK is available at `/private/tmp/fortnite-toolchain/go/bin/go`; it may disappear when temporary files are cleaned.
+
+Remaining functionality: real shop ingestion, OAuth2/JWT, watchlists, Discord alerts, and public deployment. These belong to the later milestones.
 
 ## Next session: Day 2
 

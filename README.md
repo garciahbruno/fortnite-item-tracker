@@ -25,7 +25,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Open http://localhost:8080. PostgreSQL is private to the Compose network; only the app is published, on localhost. The migration service runs before the app starts and safely skips applied migrations. Data persists in the `postgres_data` volume.
+Open http://localhost:8080. If that port is occupied, use `PORT=18080 docker compose up --build` and open http://localhost:18080. PostgreSQL is private to the Compose network; only the app is published, on localhost. The migration service runs before the app starts and safely skips applied migrations. Data persists in the `postgres_data` volume.
 
 ```sh
 curl http://localhost:8080/healthz  # process is alive
